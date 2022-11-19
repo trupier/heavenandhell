@@ -1,0 +1,3 @@
+ORM- object relation mapping. Wydzielamy pewne uncje a w nich wydzielamy
+klasy. Instancje klas będą przekładały się na wiersze w tabelach w BD.
+
