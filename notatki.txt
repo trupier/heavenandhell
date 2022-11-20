@@ -1,3 +1,80 @@
 ORM- object relation mapping. Wydzielamy pewne uncje a w nich wydzielamy
 klasy. Instancje klas będą przekładały się na wiersze w tabelach w BD.
 
+-======================-
+#order to nazwa tabeli z speakandfly
+order = session.query(Order).get(1)
+print(order) - wyciąga konkretną ilość orderu (rzeczy z klasy tabeli)
+print(order.date) - wygiąga konkretną wartość
+[nazwa_klasy].[nazwa_atrybutu] - odnosi się do konkretnej kolumny tabeli
+
+session.add(co_dodać_do_sesji) - dodaje do sesji
+session.commit() - commituje sesje
+
+=====================-=-=-=-=-========================-=-=-=-===============-=-=-=-
+
+zmiana wartości modified_on przy modyfikacji kolumny:
+onupdate=datetime.now -onupdate wrzuca edit przy updacie
+
+######///######///######///######///######///######///######///######///
+usuwanie wartości z tabeli:
+
+order = session.query(Order).get(2) - drugi rekord z tabeli order
+session.delete(order) -usuwa order czyli w tym momencie drugi rekord
+session.commit() -komituje zmiany w sesji
+
+====================================
+zaawansowane query
+.filter
+.filter_by
+
+np.
+sql_query = session.query(order).filter(order.price >= 10)
+                               /.filter_by
+           FILTER
+    orders = session.query(Order).filter(
+        Order.client_id >= 34367,
+        Order.price >= 100,
+        Order.price < 1000
+
+orders = session.query(Order).filter(
+    Order.client_id >= 34367,
+    not_(_and(Order.price >= 100,
+    Order.price < 1000))
+    ).order_by(Order.price)
+
+_and - SQLalchemowe and
+not_ - not- negacja
+
+
+one / scalar
+do filtrowania. zwracają konkretne wartości
+one- rzuca wyjątek jak obiektów jest 0 lub >1
+get - wywala rzecz lub null
+
+count- zlicza
+
+
+total = session.query(Order).filter_by(client_id=42).count
+print(f"total orders of client 42 is {total}")
+
+
+++++++++-----------========RELACJE==========--------------+++++++++++++++
+potrzebny ForeignKey("nazwatabeli") -zaimportować z sqlalchemy
+client_id = Column(integrer, ForeignKey("clients.id")
+
+trzeba zrelacjonować kolumne
+w Client klasie trzeba dodać
+
+orders = relationship('Order')
+
+
+##########ALEMBIC##############
+
+alembic revision -m initial_revision --autogenerate #na generowanie upgradów
+
+alembic upgrade head # na pushowanie zmian
+
+alembic downgrade -1 #cofanie jednej zmiany
+
+
