@@ -16,7 +16,7 @@
 #     address = Column(Integer)
 #
 #
-# class StudentGrade(Base):
+# class Studentgrade(Base):
 #     __tablename__ = "studentgrade"
 #     enrollment_id = Column(Integer, primary_key=True)
 #     student_id = Column(Integer)
@@ -35,7 +35,7 @@
 #     price = Column(Float)
 #
 #
-# class OnlineCourse(Base):
+# class Onlinecourse(Base):
 #     __tablename__ = "onlinecourse"
 #     course_id = Column(Integer, primary_key=True)
 #     url = Column(String(50))
@@ -45,8 +45,8 @@
 #     __tablename__ = "onsitecourse"
 #     course_id = Column(Integer, primary_key=True)
 #     address = Column(String(50))
-#     days = Column(Integer)
-#     time = Column(Integer)
+#     time = Column(String(10), nullable=False)
+#     days = Column(Integer, nullable=False)
 #
 #
 # class CourseInstructor(Base):
